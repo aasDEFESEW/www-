@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visitor Information</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    .info-box {
+      margin: 20px 0;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Visitor Information</h1>
+  <div class="info-box">
+    <p><strong>User Agent:</strong> <span id="user-agent"></span></p>
+    <p><strong>Language:</strong> <span id="language"></span></p>
+    <p><strong>Platform:</strong> <span id="platform"></span></p>
+    <p><strong>Screen Size:</strong> <span id="screen-size"></span></p>
+    <p><strong>Location:</strong> <span id="location"></span></p>
+  </div>
+
+  <script>
+    // ユーザーエージェント情報を取得
+    document.getElementById('user-agent').textContent = navigator.userAgent;
+    
+    // ブラウザの言語を取得
+    document.getElementById('language').textContent = navigator.language;
+
+    // 使用されているプラットフォームを取得
+    document.getElementById('platform').textContent = navigator.platform;
+
+    // 画面サイズの情報を取得
+    document.getElementById('screen-size').textContent = `${window.screen.width}x${window.screen.height}`;
+
+    // Geolocation APIでユーザーの位置情報を取得（同意が必要）
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        document.getElementById('location').textContent = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
+      }, function(error) {
+        document.getElementById('location').textContent = "Location permission denied or unavailable.";
+      });
+    } else {
+      document.getElementById('location').textContent = "Geolocation is not supported by this browser.";
+    }
+  </script>
+
+</body>
+</html>
